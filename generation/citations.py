@@ -30,6 +30,8 @@ ADVICE_WORDING = re.compile(
     r"\byou (should|shouldn't|should not|can|can't|cannot|must|need to|may want to)\b|\bi (recommend|suggest|advise)\b|\binstead take\b|\bfor you\b",
     re.I)
 NEUTRAL_LEAD_IN = "The FDA labels held document the following:"
+FOCUS_TEXT = {"INTERACTS_WITH": "drug interactions", "TREATS": "indications", "CONTRAINDICATED_FOR": "contraindications",
+              "CAUSES_SIDE_EFFECT": "adverse reactions", "BELONGS_TO_CLASS": "drug-class information"}
 # A not-found must never be worded as an absence-of-interaction finding.
 NO_INTERACTION_WORDING = re.compile(r"no (documented |known )?interaction|does not interact|do(es)? not document (any )?interaction|not documented to interact", re.I)
 
@@ -55,7 +57,14 @@ def render(summary: str, report: GateReport, ctx: MergedContext, built_on: str |
         # Deterministic wording: "not in my data" must never read as "no interaction".
         parts.append(NOT_FOUND_TEXT)
         known = [e.name for e in ctx.link.drugs if e.in_corpus]
-        if known:
+        focus = getattr(ctx.graph, "focus", set()) or set()
+        asked = ", ".join(sorted(FOCUS_TEXT.get(p, p.lower()) for p in focus)) or "facts of that kind"
+        if known and not ctx.facts and len(ctx.link.drugs) == len(known):
+            # every named drug is held, but its label text yielded nothing of the kind asked (e.g. an
+            # OTC label with no drug-interactions section). A gap in the label is not a finding of "none".
+            parts.append(f"I do hold the FDA label for {', '.join(known)}, but it documents no {asked} — "
+                         f"this is a gap in the label text held, not a finding that there are none.")
+        elif known:
             parts.append(f"Drugs I recognised in your question: {', '.join(known)}. Anything else named is not among "
                          f"the FDA labels held, so I can't say whether it interacts with them.")
         else:

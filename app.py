@@ -37,7 +37,7 @@ def _load():
     from graph import queries
     from guardrails.rails import get_rails, guarded_answer
 
-    get_rails()  # warm NeMo + spaCy once
+    get_rails()  # NeMo config + LLM client; no async work inside cache_resource (it deadlocks NeMo's sync check())
     return guarded_answer, queries.build_info()
 
 
@@ -46,6 +46,19 @@ try:
     load_error = None
 except Exception as exc:  # missing credentials, graph down, etc.
     guarded_answer, build_info, load_error = None, None, f"{type(exc).__name__}: {exc}"
+
+if guarded_answer and not st.session_state.get("rails_warm"):
+    # Warm the PII rail (loads the 600 MB spaCy model) before the first real question, so the
+    # heavy load never happens inside a user's request. Process-wide caches make this ~1 s after
+    # the first session. A failure here is a configuration problem and is shown up front.
+    from guardrails.rails import GuardrailsUnavailable, check_input
+    try:
+        with st.spinner("Warming up guardrails (PII model)…"):
+            check_input("warm-up: does warfarin interact with aspirin?")
+        st.session_state["rails_warm"] = True
+    except GuardrailsUnavailable as exc:
+        load_error = f"guardrails: {exc}"
+        guarded_answer = None
 
 st.title("💊 Drug Label Reference — hybrid graph + vector RAG")
 st.caption(
@@ -83,7 +96,9 @@ if question and guarded_answer:
     s = resp.stats
 
     badge = {"answer": "✅ Answered from FDA labels", "not_found": "🔍 Not in the labels held",
-             "refuse": "⛔ Out of scope", "degraded": "⚠️ Degraded (raw facts)"}.get(resp.status, resp.status)
+             "refuse": "⛔ Out of scope", "degraded": "⚠️ Degraded"}.get(resp.status, resp.status)
+    if s.get("rail_error"):
+        st.error(f"Guardrails failed to run — the question was NOT processed. {s['rail_error']}")
     st.markdown(f"**{badge}**" + (f" · blocked by rail `{s['blocked_by']}`" if s.get("blocked_by") else ""))
     if s.get("pii_masked"):
         st.info(f"Personal identifiers were masked before processing. The question as processed: _{resp.question}_")
@@ -110,4 +125,6 @@ if question and guarded_answer:
             st.markdown("**Context block given to the model**")
             st.code(resp.context.text, language="text")
 elif question and not guarded_answer:
-    st.error("The system is not ready — check credentials in .env and that the graph is built (see CLAUDE.md).")
+    st.error(f"The system is not ready: {load_error}")
+    st.caption("Check credentials in .env, that the graph is built, and that this Python environment has everything in "
+               "requirements.txt plus `python -m spacy download en_core_web_lg` (see CLAUDE.md).")

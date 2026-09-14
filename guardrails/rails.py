@@ -21,8 +21,11 @@ Usage:
 
 from __future__ import annotations
 
+import asyncio
+import concurrent.futures
 import logging
 import sys
+import threading
 import time
 from functools import lru_cache
 from pathlib import Path
@@ -36,6 +39,66 @@ from pipeline import Response, answer  # noqa: E402
 CONFIG_DIR = Path(__file__).resolve().parent / "config"
 logging.getLogger("nemoguardrails").setLevel(logging.WARNING)
 
+
+class _LastError(logging.Handler):
+    """Keeps the most recent ERROR NeMo logged, so an action failure can be surfaced
+    instead of the generic 'internal error' bot message."""
+
+    def __init__(self):
+        super().__init__(level=logging.ERROR)
+        self.last: str | None = None
+
+    def emit(self, record):
+        self.last = record.getMessage()[:500]
+        if record.exc_info and record.exc_info[1] is not None:
+            self.last += f" | {type(record.exc_info[1]).__name__}: {record.exc_info[1]}"[:800]
+
+
+_nemo_errors = _LastError()
+logging.getLogger("nemoguardrails").addHandler(_nemo_errors)
+INTERNAL_ERROR_MARKER = "internal error has occurred"
+
+
+class GuardrailsUnavailable(RuntimeError):
+    """A rail action itself failed (e.g. PII model not loadable). Fail closed: never answer unguarded."""
+
+
+RAIL_TIMEOUT_S = 120
+
+
+class _RailsLoop:
+    """One long-lived event loop on a dedicated thread for ALL NeMo work.
+
+    NeMo's sync API creates an event loop per calling thread. Streamlit (and most
+    servers) run each request on a different thread, so the async OpenAI client
+    that NeMo binds to the first loop is later awaited from another loop and
+    never completes — a hang, or 'an internal error has occurred'. Routing every
+    call through a single loop removes the cross-loop state entirely.
+    """
+
+    def __init__(self):
+        self.loop = asyncio.new_event_loop()
+        threading.Thread(target=self.loop.run_forever, name="nemo-rails-loop", daemon=True).start()
+
+    def run(self, coro, timeout: float = RAIL_TIMEOUT_S):
+        fut = asyncio.run_coroutine_threadsafe(coro, self.loop)
+        try:
+            return fut.result(timeout=timeout)
+        except concurrent.futures.TimeoutError:
+            fut.cancel()
+            raise GuardrailsUnavailable(f"rails did not respond within {timeout:.0f}s")
+
+    def call(self, fn, *args, timeout: float = RAIL_TIMEOUT_S):
+        """Run a sync function on the loop thread (for objects that must be created there)."""
+        async def _wrap():
+            return fn(*args)
+        return self.run(_wrap(), timeout=timeout)
+
+
+@lru_cache(maxsize=1)
+def _rails_loop() -> _RailsLoop:
+    return _RailsLoop()
+
 # Colang flow name -> status recorded on the Response
 RAIL_STATUS = {
     "check scope": "refuse",
@@ -44,6 +107,23 @@ RAIL_STATUS = {
 }
 GENERIC_REFUSAL = ("I can't help with that request. I only report documented information from FDA drug labels — "
                    "what a drug treats, interacts with, its side effects, contraindications or class.")
+
+
+def _check_pii_backend() -> None:
+    """The `mask sensitive data` rails need Presidio + spaCy's en_core_web_lg. Say so plainly
+    at start-up instead of letting NeMo report 'an internal error has occurred' per request."""
+    try:
+        import presidio_analyzer  # noqa: F401
+        import presidio_anonymizer  # noqa: F401
+        import spacy
+    except ImportError as exc:
+        raise GuardrailsUnavailable(
+            f"PII rail backend missing in this Python environment ({sys.executable}): {exc}. "
+            f"Run: pip install -r requirements.txt && python -m spacy download en_core_web_lg") from exc
+    if not spacy.util.is_package("en_core_web_lg"):
+        raise GuardrailsUnavailable(
+            f"spaCy model en_core_web_lg is not installed in {sys.executable}. "
+            f"Run: python -m spacy download en_core_web_lg")
 
 
 @lru_cache(maxsize=1)
@@ -55,14 +135,19 @@ def get_rails():
         if m.type == "main":
             m.model = settings.LLM_MODEL  # never hardcode the model in config
     settings.openai_api_key()  # fail early with a clear message if the key is missing
-    return LLMRails(config)
+    _check_pii_backend()       # ditto for the Presidio/spaCy dependency of the PII rail
+    # construct on the rails loop thread so every async client NeMo creates belongs to that loop
+    return _rails_loop().call(LLMRails, config)
 
 
 def check_input(question: str) -> tuple[str, str | None, str]:
     """Run only the input rails. Returns (text_for_pipeline, blocking_rail_or_None, refusal_text)."""
     from nemoguardrails.rails.llm.options import RailStatus, RailType
 
-    result = get_rails().check([{"role": "user", "content": question}], rail_types=[RailType.INPUT])
+    _nemo_errors.last = None
+    result = _rails_loop().run(get_rails().check_async([{"role": "user", "content": question}], rail_types=[RailType.INPUT]))
+    if result.content and INTERNAL_ERROR_MARKER in result.content:
+        raise GuardrailsUnavailable(f"rail '{result.rail or '?'}' failed: {_nemo_errors.last or 'no detail logged'}")
     if result.status == RailStatus.BLOCKED:
         rail = result.rail or "input rail"
         text = result.content if result.content and "can't respond" not in result.content else GENERIC_REFUSAL
@@ -74,12 +159,25 @@ def check_output(text: str) -> str:
     """Run only the output rails (PII masking) on the final answer."""
     from nemoguardrails.rails.llm.options import RailType
 
-    result = get_rails().check([{"role": "assistant", "content": text}], rail_types=[RailType.OUTPUT])
+    _nemo_errors.last = None
+    result = _rails_loop().run(get_rails().check_async([{"role": "assistant", "content": text}], rail_types=[RailType.OUTPUT]))
+    if result.content and INTERNAL_ERROR_MARKER in result.content:
+        raise GuardrailsUnavailable(f"output rail '{result.rail or '?'}' failed: {_nemo_errors.last or 'no detail logged'}")
     return result.content or text
 
 
+SAFETY_UNAVAILABLE = ("The safety layer could not run, so this question was not processed. "
+                      "This is a configuration problem, not something about your question.")
+
+
 def guarded_answer(question: str, log: bool = True) -> Response:
-    resp = _guarded_answer(question)
+    try:
+        resp = _guarded_answer(question)
+    except GuardrailsUnavailable as exc:
+        # fail closed, but say why (the app shows this) instead of NeMo's generic message
+        text = f"{SAFETY_UNAVAILABLE}\n\nDetail: {exc}\n\n{FOOTER}"
+        resp = Response(question, "degraded", text,
+                        stats={"blocked_by": "guardrails-unavailable", "rail_error": str(exc), "total_ms": 0})
     if log:
         try:
             logger.record(resp)
