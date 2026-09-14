@@ -29,8 +29,8 @@ jobs:
     name: unit tests (offline)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -53,15 +53,23 @@ jobs:
       - name: Check for Neo4j secrets
         id: secrets
         run: |
-          if [ -z "$NEO4J_URI" ]; then
-            echo "::warning title=Stage 1 skipped::NEO4J_URI / NEO4J_USERNAME / NEO4J_PASSWORD are not set as repository secrets, so the deterministic retrieval check cannot run."
+          missing=""
+          for v in NEO4J_URI NEO4J_USERNAME NEO4J_PASSWORD; do
+            [ -z "${!v}" ] && missing="$missing $v"
+          done
+          if [ -z "$NEO4J_URI" ] && [ -z "$NEO4J_USERNAME" ] && [ -z "$NEO4J_PASSWORD" ]; then
+            echo "::warning title=Stage 1 skipped::No Neo4j repository secrets configured (NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD), so the deterministic retrieval check cannot run."
             echo "present=false" >> "$GITHUB_OUTPUT"
+          elif [ -n "$missing" ]; then
+            echo "::error title=Stage 1 misconfigured::Repository secret(s) missing:$missing — the secret names must match exactly (note: NEO4J_USERNAME, not NEO4J_USER)."
+            exit 1
           else
+            echo "All three Neo4j secrets present (URI scheme: ${NEO4J_URI%%://*}://…)"
             echo "present=true" >> "$GITHUB_OUTPUT"
           fi
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         if: steps.secrets.outputs.present == 'true'
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         if: steps.secrets.outputs.present == 'true'
         with:
           python-version: "3.12"
@@ -71,7 +79,7 @@ jobs:
       - name: Stage 1 (fails the build below 100% pass)
         if: steps.secrets.outputs.present == 'true'
         run: python eval/run_eval.py --stage 1 --min-pass 1.0
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always() && steps.secrets.outputs.present == 'true'
         with:
           name: stage1-results
@@ -90,8 +98,8 @@ jobs:
       LLM_MODEL: gpt-4o-mini
       JUDGE_MODEL: gpt-4o
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -100,7 +108,7 @@ jobs:
       - name: Stage 2 (fails below 85% pass)
         run: python eval/run_eval.py --stage 2 --min-pass 0.85
       - run: python eval/report.py --md eval/results/ops_latest.md
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: stage2-results
