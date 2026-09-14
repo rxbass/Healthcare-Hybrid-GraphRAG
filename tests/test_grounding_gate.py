@@ -143,3 +143,12 @@ def test_speculative_relevance_clause_is_stripped_not_dropped():
              "Potentiates anticoagulant response and can result in serious or fatal bleeding.", set_id="SET-A")
     r = check(_answer(Claim(statement="Warfarin interacts with amiodarone, which can result in serious or fatal bleeding.", fact_ids=["F1"])), _ctx([g]))
     assert r.kept[0].statement.endswith("serious or fatal bleeding.")
+
+
+def test_advice_phrasing_in_summary_is_replaced():
+    ctx = _ctx([F_ASPIRIN])
+    r = check(_answer(Claim(statement="Warfarin interacts with aspirin.", fact_ids=["F1"])), ctx)
+    text = render("If you take warfarin you should avoid aspirin.", r, ctx)
+    assert "you should" not in text and text.startswith("The FDA labels held document the following:")
+    text = render("The warfarin label lists aspirin as increasing bleeding risk.", r, ctx)
+    assert text.startswith("The warfarin label lists aspirin")

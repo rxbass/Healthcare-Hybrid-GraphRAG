@@ -24,6 +24,12 @@ FOOTER = ("Informational only — documented FDA label information, not medical 
 REFUSAL_TEXT = ("I can only report documented information from FDA drug labels — I can't give dosing, diagnose "
                 "symptoms, or advise on starting, stopping or choosing a medication. Please ask a pharmacist or clinician.")
 NOT_FOUND_TEXT = "I couldn't find that in the FDA labels I hold, so I can't answer it."
+# Advice phrasing is never allowed in the summary, whatever the model wrote (the claims are facts;
+# the lead-in must not turn them into a recommendation).
+ADVICE_WORDING = re.compile(
+    r"\byou (should|shouldn't|should not|can|can't|cannot|must|need to|may want to)\b|\bi (recommend|suggest|advise)\b|\binstead take\b|\bfor you\b",
+    re.I)
+NEUTRAL_LEAD_IN = "The FDA labels held document the following:"
 # A not-found must never be worded as an absence-of-interaction finding.
 NO_INTERACTION_WORDING = re.compile(r"no (documented |known )?interaction|does not interact|do(es)? not document (any )?interaction|not documented to interact", re.I)
 
@@ -59,8 +65,10 @@ def render(summary: str, report: GateReport, ctx: MergedContext, built_on: str |
         if report.dropped:
             parts.append("(Some statements were removed because the graph facts did not support them.)")
     else:
-        if summary.strip():
-            parts.append(summary.strip())
+        lead = summary.strip()
+        if not lead or ADVICE_WORDING.search(lead):
+            lead = NEUTRAL_LEAD_IN
+        parts.append(lead)
         parts.append("")
         for claim in report.kept:
             parts.append(f"• {claim.statement.strip()} " + " ".join(f"[{i}]" for i in _ids(claim)))
