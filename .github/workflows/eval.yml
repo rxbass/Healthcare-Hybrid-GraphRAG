@@ -20,9 +20,11 @@ on:
   schedule:
     - cron: "0 6 * * 1"   # Mondays 06:00 UTC: Stage 1 + Stage 2
 
+# A newer push supersedes an in-flight push run, but manual / scheduled runs (the paid
+# Stage 2) get their own group and are never cancelled by a push.
 concurrency:
-  group: eval-${{ github.ref }}
-  cancel-in-progress: true
+  group: eval-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
 jobs:
   unit:
