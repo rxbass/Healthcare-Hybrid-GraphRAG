@@ -1,0 +1,546 @@
+{
+  "warfarin": {
+    "seed_generic": "warfarin",
+    "label_id": "5a5b5d79-6112-f2ac-e063-6394a90a2244",
+    "set_id": "5a5b5e3a-6556-a542-e063-6294a90a6d3f",
+    "effective_time": "20260831",
+    "brand_name": "Warfarin Sodium",
+    "generic_name": "WARFARIN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 20,
+    "file": "warfarin.json"
+  },
+  "aspirin": {
+    "seed_generic": "aspirin",
+    "label_id": "385229c2-9b6a-56ca-e063-6394a90aa5b7",
+    "set_id": "024c5054-959f-4ea5-a71f-c0e16cc4b90c",
+    "effective_time": "20250624",
+    "brand_name": "Aspirin Low Dose",
+    "generic_name": "ASPIRIN",
+    "product_type": "HUMAN OTC DRUG",
+    "pharm_class_epc": [
+      "Nonsteroidal Anti-inflammatory Drug [EPC]",
+      "Platelet Aggregation Inhibitor [EPC]"
+    ],
+    "sections": [
+      "description",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 9,
+    "file": "aspirin.json"
+  },
+  "ibuprofen": {
+    "seed_generic": "ibuprofen",
+    "label_id": "5a81a678-a6d3-fa4f-e063-6394a90aded5",
+    "set_id": "0fa4cd66-66ad-4ec9-b38c-6b5840df39df",
+    "effective_time": "20260902",
+    "brand_name": "Ibuprofen",
+    "generic_name": "IBUPROFEN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Nonsteroidal Anti-inflammatory Drug [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 22,
+    "file": "ibuprofen.json"
+  },
+  "naproxen": {
+    "seed_generic": "naproxen",
+    "label_id": "582606c3-1dce-a498-e063-6294a90ac99f",
+    "set_id": "24d44eb6-921e-4150-a6b2-81f42ced32ab",
+    "effective_time": "20260803",
+    "brand_name": "Naproxen",
+    "generic_name": "NAPROXEN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Nonsteroidal Anti-inflammatory Drug [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 22,
+    "file": "naproxen.json"
+  },
+  "acetaminophen": {
+    "seed_generic": "acetaminophen",
+    "label_id": "5447f567-0cef-ae0a-e063-6394a90ad867",
+    "set_id": "00eb3e4b-1507-4c9a-83a5-ef50cb312753",
+    "effective_time": "20260615",
+    "brand_name": "ACETAMINOPHEN",
+    "generic_name": "ACETAMINOPHEN",
+    "product_type": "HUMAN OTC DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 6,
+    "file": "acetaminophen.json"
+  },
+  "clopidogrel": {
+    "seed_generic": "clopidogrel",
+    "label_id": "04d99965-cea0-8e7d-e063-6394a90ab281",
+    "set_id": "b573aefa-e337-478f-97e4-eb8472a7e497",
+    "effective_time": "20230908",
+    "brand_name": "CLOPIDOGREL",
+    "generic_name": "CLOPIDOGREL",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "P2Y12 Platelet Inhibitor [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 22,
+    "file": "clopidogrel.json"
+  },
+  "apixaban": {
+    "seed_generic": "apixaban",
+    "label_id": "35ab1342-e927-4bd0-9020-628b859dfb38",
+    "set_id": "a454cd24-0c6d-46e8-b1e4-197388606175",
+    "effective_time": "20260424",
+    "brand_name": "ELIQUIS",
+    "generic_name": "APIXABAN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Factor Xa Inhibitor [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 22,
+    "file": "apixaban.json"
+  },
+  "amiodarone": {
+    "seed_generic": "amiodarone",
+    "label_id": "584f8c98-a7ba-67ac-e063-6294a90a56d6",
+    "set_id": "4c149392-a4f0-4e2d-a13f-2b94810005de",
+    "effective_time": "20260805",
+    "brand_name": "Amiodarone Hydrochloride",
+    "generic_name": "AMIODARONE HYDROCHLORIDE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 20,
+    "file": "amiodarone.json"
+  },
+  "digoxin": {
+    "seed_generic": "digoxin",
+    "label_id": "11443c80-fca0-4c9e-be13-a5f92717a715",
+    "set_id": "e61d2108-d871-44c0-b12a-2e61fbb56967",
+    "effective_time": "20260727",
+    "brand_name": "Digoxin",
+    "generic_name": "DIGOXIN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Cardiac Glycoside [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 21,
+    "file": "digoxin.json"
+  },
+  "fluconazole": {
+    "seed_generic": "fluconazole",
+    "label_id": "5aad4d5a-0444-f42e-e063-6394a90a23c1",
+    "set_id": "1c82929f-934b-4df4-b24f-1e5da090fd8a",
+    "effective_time": "20260904",
+    "brand_name": "Fluconazole",
+    "generic_name": "FLUCONAZOLE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Azole Antifungal [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 21,
+    "file": "fluconazole.json"
+  },
+  "metronidazole": {
+    "seed_generic": "metronidazole",
+    "label_id": "59fbcd33-af2f-503f-e063-6294a90acbb9",
+    "set_id": "4040db14-750f-6d20-e054-00144ff8d46c",
+    "effective_time": "20260826",
+    "brand_name": "Metronidazole",
+    "generic_name": "METRONIDAZOLE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Nitroimidazole Antimicrobial [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 22,
+    "file": "metronidazole.json"
+  },
+  "ciprofloxacin": {
+    "seed_generic": "ciprofloxacin",
+    "label_id": "42c758be-4d43-018a-e063-6294a90ae041",
+    "set_id": "42c758be-4d44-018a-e063-6294a90ae041",
+    "effective_time": "20251104",
+    "brand_name": "Ciprofloxacin in Dextrose",
+    "generic_name": "CIPROFLOXACIN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Fluoroquinolone Antibacterial [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 22,
+    "file": "ciprofloxacin.json"
+  },
+  "sulfamethoxazole_and_trimethoprim": {
+    "seed_generic": "sulfamethoxazole and trimethoprim",
+    "label_id": "fc2caf1b-56ae-49f5-be07-f9c706b6b77a",
+    "set_id": "c6171b62-835c-465e-905e-97f70438186e",
+    "effective_time": "20260902",
+    "brand_name": "Sulfamethoxazole and Trimethoprim",
+    "generic_name": "SULFAMETHOXAZOLE AND TRIMETHOPRIM",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Sulfonamide Antimicrobial [EPC]",
+      "Dihydrofolate Reductase Inhibitor Antibacterial [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 21,
+    "file": "sulfamethoxazole_and_trimethoprim.json"
+  },
+  "rifampin": {
+    "seed_generic": "rifampin",
+    "label_id": "82e2bbb1-cc73-4fbd-8d85-610634876355",
+    "set_id": "036ab68e-5085-4edc-bd83-784b43d64eab",
+    "effective_time": "20260527",
+    "brand_name": "Rifadin IV",
+    "generic_name": "RIFAMPIN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Rifamycin Antibacterial [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 21,
+    "file": "rifampin.json"
+  },
+  "carbamazepine": {
+    "seed_generic": "carbamazepine",
+    "label_id": "5a1c7623-864a-cb55-e063-6294a90aec05",
+    "set_id": "5f9535b1-ff6a-41b3-bbb2-efcf8fbacf4c",
+    "effective_time": "20260828",
+    "brand_name": "CARBAMAZEPINE",
+    "generic_name": "CARBAMAZEPINE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Mood Stabilizer [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 22,
+    "file": "carbamazepine.json"
+  },
+  "phenytoin": {
+    "seed_generic": "phenytoin",
+    "label_id": "7cdde2aa-57b2-49e4-8563-bbe86f67cd39",
+    "set_id": "3580e6a8-f7c3-44a0-a1eb-2a84ae589d21",
+    "effective_time": "20260522",
+    "brand_name": "Phenytoin Infatabs",
+    "generic_name": "PHENYTOIN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Anti-epileptic Agent [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 21,
+    "file": "phenytoin.json"
+  },
+  "simvastatin": {
+    "seed_generic": "simvastatin",
+    "label_id": "6607bc0b-d728-46ed-9186-425d1b0405b2",
+    "set_id": "3f6fad0b-0278-433f-86db-761b673a5803",
+    "effective_time": "20260831",
+    "brand_name": "SIMVASTATIN",
+    "generic_name": "SIMVASTATIN",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "HMG-CoA Reductase Inhibitor [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 21,
+    "file": "simvastatin.json"
+  },
+  "atorvastatin": {
+    "seed_generic": "atorvastatin",
+    "label_id": "91732291-fffd-4ec7-820a-917b898d2caf",
+    "set_id": "20f820ba-9600-4b51-bf23-8c99e815674c",
+    "effective_time": "20260506",
+    "brand_name": "Atorvastatin calcium",
+    "generic_name": "ATORVASTATIN CALCIUM",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "HMG-CoA Reductase Inhibitor [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 21,
+    "file": "atorvastatin.json"
+  },
+  "omeprazole": {
+    "seed_generic": "omeprazole",
+    "label_id": "062800b1-790a-41c3-a8be-94143d2c7fb6",
+    "set_id": "062800b1-790a-41c3-a8be-94143d2c7fb6",
+    "effective_time": "20260801",
+    "brand_name": "Omeprazole",
+    "generic_name": "OMEPRAZOLE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Proton Pump Inhibitor [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 21,
+    "file": "omeprazole.json"
+  },
+  "sertraline": {
+    "seed_generic": "sertraline",
+    "label_id": "5a99874a-48db-f1f8-e063-6294a90a018a",
+    "set_id": "7d598f1a-6c76-458a-a155-7a6a0743a2d3",
+    "effective_time": "20260903",
+    "brand_name": "Sertraline Hydrochloride",
+    "generic_name": "SERTRALINE HYDROCHLORIDE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 20,
+    "file": "sertraline.json"
+  },
+  "levothyroxine": {
+    "seed_generic": "levothyroxine",
+    "label_id": "030c2655-8de4-ac30-9a76-ec60f4422f42",
+    "set_id": "4ddcaec1-a58f-340b-9bc1-bbe048b8c885",
+    "effective_time": "20260817",
+    "brand_name": "levothyroxine sodium",
+    "generic_name": "LEVOTHYROXINE SODIUM",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 20,
+    "file": "levothyroxine.json"
+  },
+  "metformin": {
+    "seed_generic": "metformin",
+    "label_id": "598ecc34-b44e-d3a1-e063-6394a90a2d78",
+    "set_id": "073cf6d9-7142-4d8b-898e-174c62a1f76f",
+    "effective_time": "20260821",
+    "brand_name": "Metformin Hydrochloride",
+    "generic_name": "METFORMIN HYDROCHLORIDE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 20,
+    "file": "metformin.json"
+  },
+  "lisinopril": {
+    "seed_generic": "lisinopril",
+    "label_id": "583c8c6f-4c9d-ca5c-e063-6394a90a1fb4",
+    "set_id": "34bb4602-ccff-4939-91b9-26a63bfd40f7",
+    "effective_time": "20260804",
+    "brand_name": "Lisinopril",
+    "generic_name": "LISINOPRIL",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [],
+    "sections": [
+      "adverse_reactions",
+      "boxed_warning",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings_and_cautions"
+    ],
+    "score": 20,
+    "file": "lisinopril.json"
+  },
+  "prednisone": {
+    "seed_generic": "prednisone",
+    "label_id": "68bdeba1-553d-4d18-ae66-5eb8a0a880b8",
+    "set_id": "10fe5a3b-84dc-4600-87c2-b80c97ce18cf",
+    "effective_time": "20260731",
+    "brand_name": "Prednisone",
+    "generic_name": "PREDNISONE",
+    "product_type": "HUMAN PRESCRIPTION DRUG",
+    "pharm_class_epc": [
+      "Corticosteroid [EPC]"
+    ],
+    "sections": [
+      "adverse_reactions",
+      "clinical_pharmacology",
+      "contraindications",
+      "description",
+      "drug_interactions",
+      "indications_and_usage",
+      "warnings"
+    ],
+    "score": 21,
+    "file": "prednisone.json"
+  }
+}

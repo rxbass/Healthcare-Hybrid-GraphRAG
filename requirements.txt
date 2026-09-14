@@ -1,0 +1,32 @@
+# Core orchestration (LCEL)
+langchain>=1.4,<2
+langchain-core>=1.6,<2
+langchain-openai>=1.6,<2
+langchain-neo4j>=0.10,<1
+
+# Graph + dense vector index (Neo4j native)
+neo4j>=6.3,<7
+
+# LLM / embeddings
+openai>=3.13,<4
+# openai 3.x vendors httpx2, which needs Brotli >= 1.2 (older Brotli -> "process() takes no keyword arguments")
+Brotli>=1.2
+
+# Guardrails — Colang syntax differs between 1.0 and 2.0; keep this pinned
+nemoguardrails==0.24.0
+# PII input rail backend used by NeMo's `mask sensitive data` flows (Presidio + spaCy).
+# Also needs the model once:  python -m spacy download en_core_web_lg
+presidio-analyzer>=2.2,<3
+presidio-anonymizer>=2.2,<3
+spacy>=3.8,<4
+
+# Data ingestion
+requests>=2.32,<3
+python-dotenv>=1.1,<2
+pydantic>=2.11,<3
+
+# UI
+streamlit>=1.50,<2
+
+# Tests
+pytest>=8.0,<10

@@ -1,0 +1,59 @@
+# NeMo Guardrails configuration — pinned to nemoguardrails==0.24.0, Colang 1.0.
+# (Colang 2.x changes flow syntax; do not bump without re-checking rails.co.)
+#
+# Rails run, in order, on every user message BEFORE our pipeline sees it:
+#   1. mask sensitive data on input  — Presidio: names, dates, phone, email, SSN, MRN -> <PERSON> etc.
+#   2. check scope                   — deterministic (regex) refusal of dosing / diagnosis /
+#                                      personal-treatment / off-topic questions. Runs BEFORE the
+#                                      LLM rail so scope refusals are deterministic and free.
+#   3. self check input              — LLM yes/no for jailbreak & prompt injection that survive
+#                                      the scope check (e.g. a valid question with an override payload)
+# and on the answer AFTER our pipeline:
+#   4. mask sensitive data on output — belt-and-braces for identifiers (SSN/phone/email/MRN).
+#      PERSON is deliberately NOT masked on output: spaCy NER tags drug names as people.
+#
+# The main model name is overridden at runtime from LLM_MODEL (see guardrails/rails.py);
+# the API key comes from OPENAI_API_KEY in the environment. No secrets here.
+colang_version: "1.0"
+
+models:
+  - type: main
+    engine: openai
+    model: gpt-4o-mini
+
+rails:
+  input:
+    flows:
+      - mask sensitive data on input
+      - check scope
+      - self check input
+  output:
+    flows:
+      - mask sensitive data on output
+  config:
+    sensitive_data_detection:
+      input:
+        entities:
+          - PERSON
+          - DATE_TIME
+          - PHONE_NUMBER
+          - EMAIL_ADDRESS
+          - US_SSN
+          - LOCATION
+          - MEDICAL_RECORD_NUMBER
+      output:
+        entities:
+          - PHONE_NUMBER
+          - EMAIL_ADDRESS
+          - US_SSN
+          - MEDICAL_RECORD_NUMBER
+      recognizers:
+        - name: "MRN recognizer"
+          supported_language: "en"
+          supported_entity: "MEDICAL_RECORD_NUMBER"
+          patterns:
+            - name: "mrn labelled"
+              regex: '(?i)\b(MRN|medical record (number|no\.?)|patient (id|number))\s*[:#]?\s*[A-Z]?\d{5,12}\b'
+              score: 0.9
+
+lowest_temperature: 0.0

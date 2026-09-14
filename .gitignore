@@ -216,3 +216,24 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---- Project-specific (Healthcare Hybrid GraphRAG) ----
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Built vector index artifacts (if FAISS is ever used instead of Neo4j native)
+index/
+*.faiss
+*.index
+
+# Per-query observability logs
+logs/
+
+# NeMo Guardrails local cache
+.cache/
+
+# Markdown files — only the top-level README is tracked
+*.md
+!/README.md

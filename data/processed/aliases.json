@@ -1,0 +1,128 @@
+{
+  "acetaminophen": [
+    "acetaminophen",
+    "paracetamol",
+    "tylenol"
+  ],
+  "amiodarone": [
+    "amiodarone",
+    "amiodarone hydrochloride",
+    "cordarone",
+    "pacerone"
+  ],
+  "apixaban": [
+    "apixaban",
+    "eliquis"
+  ],
+  "aspirin": [
+    "acetylsalicylic acid",
+    "asa",
+    "aspirin",
+    "aspirin low dose"
+  ],
+  "atorvastatin": [
+    "atorvastatin",
+    "atorvastatin calcium",
+    "lipitor"
+  ],
+  "carbamazepine": [
+    "carbamazepine",
+    "tegretol"
+  ],
+  "ciprofloxacin": [
+    "cipro",
+    "ciprofloxacin",
+    "ciprofloxacin in dextrose"
+  ],
+  "clopidogrel": [
+    "clopidogrel",
+    "plavix"
+  ],
+  "digoxin": [
+    "digoxin",
+    "lanoxin"
+  ],
+  "fluconazole": [
+    "diflucan",
+    "fluconazole"
+  ],
+  "ibuprofen": [
+    "advil",
+    "ibuprofen",
+    "motrin"
+  ],
+  "levothyroxine": [
+    "l-thyroxine",
+    "levothyroxine",
+    "levothyroxine sodium",
+    "levoxyl",
+    "synthroid"
+  ],
+  "lisinopril": [
+    "lisinopril",
+    "prinivil",
+    "zestril"
+  ],
+  "metformin": [
+    "glucophage",
+    "metformin",
+    "metformin hydrochloride"
+  ],
+  "metronidazole": [
+    "flagyl",
+    "metronidazole"
+  ],
+  "naproxen": [
+    "aleve",
+    "naprosyn",
+    "naproxen",
+    "naproxen sodium"
+  ],
+  "omeprazole": [
+    "omeprazole",
+    "prilosec"
+  ],
+  "phenytoin": [
+    "dilantin",
+    "phenytoin",
+    "phenytoin infatabs"
+  ],
+  "prednisone": [
+    "deltasone",
+    "prednisone"
+  ],
+  "rifampin": [
+    "rifadin",
+    "rifadin iv",
+    "rifampicin",
+    "rifampin"
+  ],
+  "sertraline": [
+    "sertraline",
+    "sertraline hydrochloride",
+    "zoloft"
+  ],
+  "simvastatin": [
+    "simvastatin",
+    "zocor"
+  ],
+  "sulfamethoxazole_and_trimethoprim": [
+    "bactrim",
+    "co-trimoxazole",
+    "cotrimoxazole",
+    "septra",
+    "smx-tmp",
+    "sulfamethoxazole",
+    "sulfamethoxazole and trimethoprim",
+    "sulfamethoxazole-trimethoprim",
+    "tmp-smx",
+    "trimethoprim",
+    "trimethoprim-sulfamethoxazole"
+  ],
+  "warfarin": [
+    "coumadin",
+    "jantoven",
+    "warfarin",
+    "warfarin sodium"
+  ]
+}

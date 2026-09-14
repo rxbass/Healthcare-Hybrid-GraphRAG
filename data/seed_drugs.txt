@@ -1,0 +1,29 @@
+# Warfarin-centric seed set for openFDA ingestion (one generic name per line).
+# Chosen so that the multi-hop demo query has real answers:
+#   anticoagulant hub + drugs that interact with it (NSAIDs, antifungals,
+#   antibiotics, antiarrhythmics, enzyme inducers) + a few non-interacting
+#   controls so "no interaction found" is a real graph outcome, not a data gap.
+warfarin
+aspirin
+ibuprofen
+naproxen
+acetaminophen
+clopidogrel
+apixaban
+amiodarone
+digoxin
+fluconazole
+metronidazole
+ciprofloxacin
+sulfamethoxazole and trimethoprim
+rifampin
+carbamazepine
+phenytoin
+simvastatin
+atorvastatin
+omeprazole
+sertraline
+levothyroxine
+metformin
+lisinopril
+prednisone

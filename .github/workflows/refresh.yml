@@ -1,0 +1,39 @@
+# Scheduled data refresh (DESIGN.md section 7): re-pull FDA labels, rebuild the
+# graph + vector index, then run Stage 1 as the release gate. Stale health data
+# is a correctness bug, so this runs monthly and can be triggered by hand.
+name: refresh
+
+on:
+  schedule:
+    - cron: "0 3 1 * *"   # 1st of the month, 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      NEO4J_URI: ${{ secrets.NEO4J_URI }}
+      NEO4J_USERNAME: ${{ secrets.NEO4J_USERNAME }}
+      NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      LLM_MODEL: gpt-4o-mini
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Rebuild and gate
+        run: python scripts/refresh.py
+      - name: Open a PR with the refreshed data if anything changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "data: monthly openFDA refresh"
+          title: "Monthly openFDA label refresh"
+          body: "Automated refresh. Stage 1 passed on the rebuilt graph; see eval/results/stage1_latest.md."
+          branch: auto/refresh
+          add-paths: |
+            data/raw/**
+            data/processed/**
+            eval/results/stage1_latest.*

@@ -1,0 +1,27 @@
+# Colang 1.0 — scope rail. Deterministic: the decision is made by the
+# `check_scope` action (guardrails/config/actions.py, plain regex), not by the LLM.
+
+define bot refuse dosing
+  "I can't help with dosing — how much or how often to take a medication is a decision for a prescriber or pharmacist who knows your situation. I can report what an FDA label documents about a drug's interactions, indications, contraindications or side effects."
+
+define bot refuse diagnosis
+  "I can't diagnose symptoms or tell you what condition you might have. Please contact a clinician — urgently if you feel unwell. I can report documented FDA label information about specific medications."
+
+define bot refuse treatment advice
+  "I can't advise whether to start, stop, skip, switch or choose a medication — that is a personal treatment decision for your prescriber or pharmacist. I can report what the FDA labels document about specific drugs."
+
+define bot refuse off topic
+  "I only answer questions about medications using FDA drug label information — what a drug treats, interacts with, its side effects, contraindications or class."
+
+define subflow check scope
+  $scope = execute check_scope(text=$user_message)
+  if $scope.blocked
+    if $scope.reason == "dosing"
+      bot refuse dosing
+    else if $scope.reason == "diagnosis"
+      bot refuse diagnosis
+    else if $scope.reason == "treatment"
+      bot refuse treatment advice
+    else
+      bot refuse off topic
+    stop
