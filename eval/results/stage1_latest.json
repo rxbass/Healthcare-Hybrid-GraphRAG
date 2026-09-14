@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T13:38:06+00:00",
+  "generated_at": "2026-09-14T14:36:38+00:00",
   "summary": {
     "n": 42,
     "passed": 42,
@@ -50,7 +50,7 @@
       "graph_facts": 1,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 810
+      "ms": 421
     },
     {
       "id": "g002",
@@ -75,7 +75,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 219
+      "ms": 238
     },
     {
       "id": "g003",
@@ -100,7 +100,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 219
+      "ms": 263
     },
     {
       "id": "g004",
@@ -125,7 +125,7 @@
       "graph_facts": 23,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 211
+      "ms": 243
     },
     {
       "id": "g005",
@@ -150,7 +150,7 @@
       "graph_facts": 1,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 231
+      "ms": 225
     },
     {
       "id": "g006",
@@ -173,7 +173,7 @@
       "graph_facts": 37,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 85
+      "ms": 98
     },
     {
       "id": "g007",
@@ -198,7 +198,7 @@
       "graph_facts": 1,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 212
+      "ms": 224
     },
     {
       "id": "g008",
@@ -223,7 +223,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 219
+      "ms": 226
     },
     {
       "id": "g009",
@@ -248,7 +248,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 237
+      "ms": 232
     },
     {
       "id": "g010",
@@ -271,7 +271,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 84
+      "ms": 90
     },
     {
       "id": "g011",
@@ -294,7 +294,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 85
+      "ms": 89
     },
     {
       "id": "g012",
@@ -317,7 +317,7 @@
       "graph_facts": 13,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 85
+      "ms": 88
     },
     {
       "id": "g013",
@@ -347,7 +347,7 @@
         ]
       ],
       "graph_error": null,
-      "ms": 295
+      "ms": 319
     },
     {
       "id": "g014",
@@ -370,7 +370,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 84
+      "ms": 113
     },
     {
       "id": "g015",
@@ -393,7 +393,7 @@
       "graph_facts": 15,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 129
+      "ms": 136
     },
     {
       "id": "g016",
@@ -416,7 +416,7 @@
       "graph_facts": 5,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 82
+      "ms": 89
     },
     {
       "id": "g017",
@@ -439,7 +439,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 81
+      "ms": 89
     },
     {
       "id": "g018",
@@ -462,7 +462,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 86
+      "ms": 88
     },
     {
       "id": "g019",
@@ -485,7 +485,7 @@
       "graph_facts": 3,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 123
+      "ms": 135
     },
     {
       "id": "g020",
@@ -508,7 +508,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 86
+      "ms": 87
     },
     {
       "id": "g021",
@@ -531,7 +531,7 @@
       "graph_facts": 30,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 87
+      "ms": 88
     },
     {
       "id": "g022",
@@ -554,7 +554,7 @@
       "graph_facts": 30,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 90
+      "ms": 88
     },
     {
       "id": "g023",
@@ -577,7 +577,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 78
+      "ms": 87
     },
     {
       "id": "g024",
@@ -600,7 +600,7 @@
       "graph_facts": 1,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 83
+      "ms": 88
     },
     {
       "id": "g025",
@@ -623,7 +623,7 @@
       "graph_facts": 1,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 85
+      "ms": 88
     },
     {
       "id": "g026",
@@ -646,7 +646,7 @@
       "graph_facts": 9,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 153
+      "ms": 145
     },
     {
       "id": "g027",
@@ -669,7 +669,7 @@
       "graph_facts": 40,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 88
+      "ms": 98
     },
     {
       "id": "g028",
@@ -692,7 +692,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 132
+      "ms": 167
     },
     {
       "id": "g029",
@@ -715,7 +715,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 84
+      "ms": 92
     },
     {
       "id": "g030",
@@ -738,7 +738,7 @@
       "graph_facts": 2,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 83
+      "ms": 88
     },
     {
       "id": "g031",
@@ -768,7 +768,7 @@
         ]
       ],
       "graph_error": null,
-      "ms": 218
+      "ms": 229
     },
     {
       "id": "g032",
@@ -798,7 +798,7 @@
         ]
       ],
       "graph_error": null,
-      "ms": 206
+      "ms": 221
     },
     {
       "id": "g033",
@@ -821,7 +821,7 @@
       "graph_facts": 40,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 90
+      "ms": 101
     },
     {
       "id": "g034",
@@ -863,7 +863,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 82
+      "ms": 90
     },
     {
       "id": "g036",
@@ -886,7 +886,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 133
+      "ms": 135
     },
     {
       "id": "g037",
@@ -905,7 +905,7 @@
       "graph_facts": 0,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 0
+      "ms": 1
     },
     {
       "id": "g038",
@@ -928,7 +928,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 83
+      "ms": 89
     },
     {
       "id": "g039",
@@ -958,7 +958,7 @@
         ]
       ],
       "graph_error": null,
-      "ms": 204
+      "ms": 218
     },
     {
       "id": "g040",
@@ -981,7 +981,7 @@
       "graph_facts": 7,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 84
+      "ms": 88
     },
     {
       "id": "g041",
@@ -1006,7 +1006,7 @@
       "graph_facts": 1,
       "no_interaction_pairs": [],
       "graph_error": null,
-      "ms": 219
+      "ms": 233
     },
     {
       "id": "g042",

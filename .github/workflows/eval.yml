@@ -29,8 +29,8 @@ jobs:
     name: unit tests (offline)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -49,16 +49,30 @@ jobs:
       NEO4J_USERNAME: ${{ secrets.NEO4J_USERNAME }}
       NEO4J_PASSWORD: ${{ secrets.NEO4J_PASSWORD }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      # Job-level `if` cannot read secrets, so detect them in a step and gate the rest on it.
+      - name: Check for Neo4j secrets
+        id: secrets
+        run: |
+          if [ -z "$NEO4J_URI" ]; then
+            echo "::warning title=Stage 1 skipped::NEO4J_URI / NEO4J_USERNAME / NEO4J_PASSWORD are not set as repository secrets, so the deterministic retrieval check cannot run."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v5
+        if: steps.secrets.outputs.present == 'true'
+      - uses: actions/setup-python@v6
+        if: steps.secrets.outputs.present == 'true'
         with:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
+        if: steps.secrets.outputs.present == 'true'
       - name: Stage 1 (fails the build below 100% pass)
+        if: steps.secrets.outputs.present == 'true'
         run: python eval/run_eval.py --stage 1 --min-pass 1.0
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.secrets.outputs.present == 'true'
         with:
           name: stage1-results
           path: eval/results/stage1_latest.*
@@ -76,8 +90,8 @@ jobs:
       LLM_MODEL: gpt-4o-mini
       JUDGE_MODEL: gpt-4o
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip

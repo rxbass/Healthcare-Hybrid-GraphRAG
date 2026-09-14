@@ -82,6 +82,19 @@ def stage1(rows: list[dict]) -> dict:
     from actions import scope_of
     from retrieval import entity_linker, graph_retriever
 
+    # Fail loudly here: the retriever degrades gracefully when the graph is down (right for the
+    # app, wrong for an eval) and would otherwise report a misleading low pass rate.
+    from graph import db, queries
+    try:
+        db.get_driver()
+        info = queries.build_info()
+    except Exception as exc:
+        raise SystemExit(f"stage 1 aborted: Neo4j unreachable — {type(exc).__name__}: {exc}\n"
+                         f"Set NEO4J_URI / NEO4J_USERNAME / NEO4J_PASSWORD (repo secrets in CI).")
+    if not info:
+        raise SystemExit("stage 1 aborted: the graph is empty (no BuildInfo). Run ingestion/build_index.py first.")
+    print(f"graph built on {info['built_at']} ({info['n_labels']} labels, {info['n_triplets']} triplets)")
+
     results = []
     for r in rows:
         t0 = time.perf_counter()
